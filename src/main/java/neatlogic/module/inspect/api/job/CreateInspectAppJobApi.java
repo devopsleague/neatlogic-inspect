@@ -64,6 +64,7 @@ public class CreateInspectAppJobApi extends PrivateApiComponentBase {
     AutoexecCombopMapper autoexecCombopMapper;
     @Resource
     InspectMapper inspectMapper;
+
     @Override
     public String getName() {
         return "创建应用巡检作业";
@@ -146,7 +147,7 @@ public class CreateInspectAppJobApi extends PrivateApiComponentBase {
         for (CiVo ciVo : ciVoList) {
             Long ciId = ciVo.getId();
             Long combopId = inspectMapper.getCombopIdByCiId(ciId);
-            if(combopId == null){
+            if (combopId == null) {
                 continue;
             }
             AutoexecCombopVo combopVo = autoexecCombopMapper.getAutoexecCombopById(combopId);
@@ -204,7 +205,7 @@ public class CreateInspectAppJobApi extends PrivateApiComponentBase {
         }
 
         BatchRunner<AutoexecJobVo> runner = new BatchRunner<>();
-        runner.execute(autoexecJobList, 3, jobVo -> {
+        runner.execute(autoexecJobList, 3, (threadIndex, dataIndex, jobVo) -> {
             try {
                 IAutoexecJobActionCrossoverService autoexecJobActionCrossoverService = CrossoverServiceFactory.getApi(IAutoexecJobActionCrossoverService.class);
                 autoexecJobActionCrossoverService.validateAndCreateJobFromCombop(jobVo);
