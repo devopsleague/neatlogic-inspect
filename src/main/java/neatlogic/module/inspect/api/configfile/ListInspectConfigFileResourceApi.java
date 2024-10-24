@@ -110,14 +110,15 @@ public class ListInspectConfigFileResourceApi extends PrivateApiComponentBase {
                 }
             }
         } else {
-            IResourceCenterResourceCrossoverService resourceCenterResourceCrossoverService = CrossoverServiceFactory.getApi(IResourceCenterResourceCrossoverService.class);
-            resourceCenterResourceCrossoverService.handleBatchSearchList(searchVo);
+            resourceCrossoverService.handleBatchSearchList(searchVo);
+            resourceCrossoverService.setIpFieldAttrIdAndNameFieldAttrId(searchVo);
             int count = inspectConfigFileMapper.getInspectResourceCount(searchVo);
             if (count > 0) {
                 searchVo.setRowNum(count);
+                resourceCrossoverService.setIsIpFieldSortAndIsNameFieldSort(searchVo);
                 List<Long> idList = inspectConfigFileMapper.getInspectResourceIdList(searchVo);
                 if (CollectionUtils.isNotEmpty(idList)) {
-                    Map<Long, List<TagVo>> tagMap = resourceCenterResourceCrossoverService.getResourceTagByResourceIdList(idList);
+                    Map<Long, List<TagVo>> tagMap = resourceCrossoverService.getResourceTagByResourceIdList(idList);
                     List<AutoexecJobPhaseNodeVo> autoexecJobPhaseNodeList = autoexecJobMapper.getAutoexecJobNodeListByResourceIdList(idList);
                     Map<Long, AutoexecJobPhaseNodeVo> autoexecJobPhaseNodeMap = autoexecJobPhaseNodeList.stream().collect(Collectors.toMap(e -> e.getResourceId(), e -> e));
                     inspectResourceList = inspectConfigFileMapper.getInspectResourceListByIdList(idList);
