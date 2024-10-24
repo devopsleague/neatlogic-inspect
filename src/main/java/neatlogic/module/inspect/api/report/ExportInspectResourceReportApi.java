@@ -76,7 +76,7 @@ public class ExportInspectResourceReportApi extends PrivateBinaryStreamApiCompon
 
     @Override
     public String getName() {
-        return "导出巡检资产报告列表";
+        return "nmiar.exportinspectresourcereportapi.getname";
     }
 
     @Override
@@ -100,7 +100,7 @@ public class ExportInspectResourceReportApi extends PrivateBinaryStreamApiCompon
             @Param(name = "batchSearchList", type = ApiParamType.JSONARRAY, desc = "term.cmdb.batchsearchlist"),
             @Param(name = "defaultValue", type = ApiParamType.JSONARRAY, desc = "common.defaultvalue"),
     })
-    @Description(desc = "导出巡检资产报告列表")
+    @Description(desc = "nmiar.exportinspectresourcereportapi.getname")
     @Override
     public Object myDoService(JSONObject paramObj, HttpServletRequest request, HttpServletResponse response) throws Exception {
         ICiCrossoverMapper ciCrossoverMapper = CrossoverServiceFactory.getApi(ICiCrossoverMapper.class);
