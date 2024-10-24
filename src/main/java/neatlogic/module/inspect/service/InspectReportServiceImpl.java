@@ -153,8 +153,6 @@ public class InspectReportServiceImpl implements InspectReportService {
     public List<InspectResourceVo> getInspectResourceReportList(ResourceSearchVo searchVo) {
         if (CollectionUtils.isEmpty(searchVo.getIdList())) {
             List<InspectResourceVo> inspectResourceVoList = null;
-            IResourceCenterResourceCrossoverService resourceCenterResourceCrossoverService = CrossoverServiceFactory.getApi(IResourceCenterResourceCrossoverService.class);
-            resourceCenterResourceCrossoverService.handleBatchSearchList(searchVo);
             int resourceCount = inspectMapper.getInspectResourceCount(searchVo);
             if (resourceCount > 0) {
                 searchVo.setRowNum(resourceCount);

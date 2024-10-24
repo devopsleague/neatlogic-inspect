@@ -81,6 +81,8 @@ public class InspectResourceReportSearchApi extends PrivateApiComponentBase {
     public Object myDoService(JSONObject paramObj) throws Exception {
         IResourceCenterResourceCrossoverService resourceCrossoverService = CrossoverServiceFactory.getApi(IResourceCenterResourceCrossoverService.class);
         ResourceSearchVo searchVo = resourceCrossoverService.assembleResourceSearchVo(paramObj);
+        resourceCrossoverService.handleBatchSearchList(searchVo);
+        resourceCrossoverService.setIpFieldAttrIdAndNameFieldAttrId(searchVo);
         return TableResultUtil.getResult(inspectReportService.getInspectResourceReportList(searchVo), searchVo);
     }
 
